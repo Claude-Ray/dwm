@@ -46,6 +46,7 @@ static const Layout layouts[] = {
 
 /* key definitions */
 #define MODKEY Mod4Mask
+#define HYPERKEY Mod1Mask|Mod4Mask|ControlMask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -54,6 +55,7 @@ static const Layout layouts[] = {
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+#define BASHCMD(cmd) { .v = (const char*[]){ "/bin/bash", "-c", cmd, NULL } }
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -61,13 +63,19 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "st", NULL };
 static const char *slockcmd[]  = { "slock", NULL };
 static const char *screenshotcmd[]  = { "flameshot", "gui", NULL };
+static const char emacscmd[] = "wmctrl -xa Emacs || /usr/bin/emacs";
+static const char qutebrowsercmd[] = "wmctrl -xa qutebrowser || qutebrowser";
+static const char stcmd[] = "wmctrl -xa st || st";
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_l,      spawn,          {.v = slockcmd } },
-	{ MODKEY|ControlMask,         XK_a,      spawn,          {.v = screenshotcmd } },
+	{ MODKEY|ControlMask,           XK_a,      spawn,          {.v = screenshotcmd } },
+	{ HYPERKEY,                     XK_e,      spawn,          {.v = BASHCMD(emacscmd) } },
+	{ HYPERKEY,                     XK_q,      spawn,          {.v = BASHCMD(qutebrowsercmd) } },
+	{ HYPERKEY,                     XK_Return, spawn,          {.v = BASHCMD(stcmd) } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
