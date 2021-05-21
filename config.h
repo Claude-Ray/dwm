@@ -31,8 +31,8 @@ static const Rule rules[] = {
 	{ "Alacritty",    NULL,       NULL,       1 << 0,       0,           -1 },
 	{ "Emacs",        NULL,       NULL,       1 << 1,       0,           -1 },
 	{ "qutebrowser",  NULL,       NULL,       1 << 2,       0,           -1 },
+	{ "VirtualBox",   NULL,       NULL,       1 << 7,       0,           -1 },
 	{ "firefox",      NULL,       NULL,       1 << 8,       0,           -1 },
-	{ "VirtualBox Manager", NULL, NULL,       1 << 9,       0,           -1 },
 };
 
 /* layout(s) */
@@ -70,7 +70,7 @@ static const char *screenshotcmd[]  = { "flameshot", "gui", NULL };
 static const char emacscmd[] = "wmctrl -xa Emacs || /usr/bin/emacs";
 static const char firefoxcmd[] = "wmctrl -xa firefox || firefox";
 static const char qutebrowsercmd[] = "wmctrl -xa qutebrowser || qutebrowser";
-static const char vboxcmd[] = "wmctrl -a VirtualBox || virtualbox";
+static const char vboxcmd[] = "wmctrl -xa 'VirtualBox Machine' || wmctrl -xa VirtualBox || virtualbox";
 static const char stcmd[] = "wmctrl -xa alacritty || alacritty || wmctrl -xa st || st";
 
 static Key keys[] = {
@@ -83,7 +83,7 @@ static Key keys[] = {
 	{ HYPERKEY,                     XK_e,      spawn,          BASHCMD(emacscmd) },
 	{ HYPERKEY,                     XK_f,      spawn,          BASHCMD(firefoxcmd) },
 	{ HYPERKEY,                     XK_q,      spawn,          BASHCMD(qutebrowsercmd) },
-	{ HYPERKEY,                     XK_w,      spawn,          BASHCMD(vboxcmd) },
+	{ HYPERKEY,                     XK_v,      spawn,          BASHCMD(vboxcmd) },
 	{ HYPERKEY,                     XK_Return, spawn,          BASHCMD(stcmd) },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
