@@ -28,7 +28,7 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class          instance    title       tags mask     isfloating   monitor */
-	{ "Alacritty",    NULL,       NULL,       1 << 0,       0,           -1 },
+	/* { "Alacritty",    NULL,       NULL,       1 << 0,       0,           -1 }, */
 	{ "EasyConnect",  NULL,       NULL,       1 << 0,       1,           -1 },
 	{ "Emacs",        NULL,       NULL,       1 << 1,       0,           -1 },
 	{ "qutebrowser",  NULL,       NULL,       1 << 2,       0,           -1 },
@@ -68,16 +68,16 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *roficmd[] = { "rofi", "-combi-modi", "window,drun,ssh,clipboard:greenclip print", "-show", "combi", "-modi", "combi", "-show-icons", NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "alacritty", NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
 static const char *slockcmd[]  = { "slock", NULL };
 static const char *screenshotcmd[]  = { "flameshot", "gui", NULL };
-static const char emacscmd[] = "wmctrl -Fa remote-emacs || wmctrl -xa Emacs || /usr/bin/emacs";
+static const char emacscmd[] = "wmctrl -a remote-emacs || wmctrl -xa Emacs || /usr/bin/emacs";
 static const char firefoxcmd[] = "wmctrl -xa firefox || firefox";
 static const char qutebrowsercmd[] = "wmctrl -xa qutebrowser || qutebrowser";
 static const char vboxcmd[] = "wmctrl -xa 'VirtualBox Machine' || wmctrl -xa VirtualBox || virtualbox";
-static const char stcmd[] = "wmctrl -xa alacritty || alacritty || wmctrl -xa st || st";
+static const char stcmd[] = "wmctrl -ia $(wmctrl -lx|grep Alacritty|grep -v remote-emacs) || alacritty || wmctrl -xa st || st";
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
